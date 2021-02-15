@@ -42,11 +42,11 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 				pluginCommand = commandConstructor.newInstance(label, plugin);
 
 				if (!commandMap.register(plugin.getName(), pluginCommand)) {
-					throw new RuntimeException("Impossibile sovrascrivere un comando esistente.");
+					throw new RuntimeException("Cannot replace an already existing command.");
 				}
 			} catch (Exception var11) {
 				var11.printStackTrace();
-				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Impossibile registrare al volo il comando " + label + "");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Cannot register command " + label + "");
 				return;
 			}
 		}
@@ -77,11 +77,11 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 
 						String alias = aliases[var9];
 						if (alias == null || alias.isEmpty()) {
-							throw new RuntimeException("Alias vuoto o nullo.");
+							throw new RuntimeException("Alias empty or null.");
 						}
 
 						if (alias.contains(":")) {
-							throw new RuntimeException("Caratteri illegali presenti negli alias.");
+							throw new RuntimeException("Illegal chars in alias.");
 						}
 
 						++var9;
@@ -89,11 +89,11 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 				}
 
 				if (!commandMap.register(plugin.getName(), pluginCommand)) {
-					throw new RuntimeException("Impossibile sovrascrivere un comando esistente");
+					throw new RuntimeException("Cannot create an already existing command");
 				}
 			} catch (Exception var11) {
 				var11.printStackTrace();
-				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Impossibile registrare al volo il comando " + label + "");
+				Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "Cannot register command " + label + "");
 				return;
 			}
 		}
@@ -151,7 +151,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			if (sender instanceof Player) {
 				return (Player)sender;
 			} else {
-				throw new CommandFramework.ExecuteException("Questo comando non è eseguibile da CONSOLE.");
+				throw new CommandFramework.ExecuteException("You can't execute this command from console.");
 			}
 		}
 
@@ -160,9 +160,9 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				double a = Double.parseDouble(input);
 				if(a >= min && a <= max) return a;
-				else throw new CommandFramework.ExecuteException("Il numero inserito deve appartenere all'intervallo " + min + " - " + max + ".");
+				else throw new CommandFramework.ExecuteException("The number must be in the interval " + min + " - " + max + ".");
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il numero inserito non è valido.");
+				throw new CommandFramework.ExecuteException("Invalid number.");
 			}
 		}
 
@@ -171,7 +171,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				return Double.parseDouble(input);
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il numero inserito non è valido.");
+				throw new CommandFramework.ExecuteException("Invalid number.");
 			}
 		}
 
@@ -180,7 +180,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				return Double.parseDouble(input);
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il campo <" + campo + "> deve contenere un valore numerico valido.");
+				throw new CommandFramework.ExecuteException("The argument <" + campo + "> must have a valid number.");
 			}
 		}
 
@@ -189,9 +189,9 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				int a = Integer.parseInt(input);
 				if(a >= min && a <= max) return a;
-				else throw new CommandFramework.ExecuteException("Il numero inserito deve appartenere all'intervallo " + min + " - " + max + ".");
+				else throw new CommandFramework.ExecuteException("The number must be between " + min + " - " + max + ".");
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il numero inserito non è valido.");
+				throw new CommandFramework.ExecuteException("Invalid number.");
 			}
 		}
 
@@ -200,7 +200,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				return Integer.parseInt(input);
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il numero inserito non è valido.");
+				throw new CommandFramework.ExecuteException("Invalid number.");
 			}
 		}
 
@@ -219,7 +219,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				Integer.parseInt(input);
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il campo deve contenere un valore numerico valido.");
+				throw new CommandFramework.ExecuteException("Invalid number.");
 			}
 		}
 
@@ -239,7 +239,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				Double.parseDouble(input);
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il campo deve contenere un valore numerico valido.");
+				throw new CommandFramework.ExecuteException("Invalid number.");
 			}
 		}
 
@@ -258,12 +258,12 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			try {
 				int i = Integer.parseInt(input);
 				if (i < 0) {
-					throw new CommandFramework.ExecuteException("Devi inserire un numero positivo.");
+					throw new CommandFramework.ExecuteException("You must use a positive number.");
 				} else {
 					return i;
 				}
 			} catch (NumberFormatException var2) {
-				throw new CommandFramework.ExecuteException("Il numero inserito non è valido.");
+				throw new CommandFramework.ExecuteException("Invalid number.");
 			}
 		}
 
@@ -319,7 +319,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 		// Verifica che un Player abbia un determinato permesso
 		public static void Permission(Player player, String permission) {
 			if (!player.hasPermission(permission)) {
-				if(player.hasPermission("tecnoutils.admin")) throw new CommandFramework.ExecuteException("Non hai il permesso §7" + permission + "§c!");
+				if(player.hasPermission("rattly.admin")) throw new CommandFramework.ExecuteException("You don't have the permission §7" + permission + "§c!");
 				throw new CommandFramework.ExecuteException("Non hai il permesso per eseguire questo comando!");
 			}
 		}
@@ -327,22 +327,22 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 		// Verifica che un Sender abbia un determinato permesso
 		public static void Permission(CommandSender sender, String permission) {
 			if (!sender.hasPermission(permission)) {
-				if(sender.hasPermission("tecnoutils.admin")) throw new CommandFramework.ExecuteException("Non hai il permesso §7" + permission + "§c!");
-				throw new CommandFramework.ExecuteException("Non hai il permesso per eseguire questo comando!");
+				if(sender.hasPermission("rattly.admin")) throw new CommandFramework.ExecuteException("You don't have the permission §7" + permission + "§c!");
+				throw new CommandFramework.ExecuteException("You can't use this command!");
 			}
 		}
 
 		// Verifica che il blocco guardato dal player sia di Material {type} e in caso lo ritorna
 		public static Block getTargetBlock(Player player, Material type) {
 			Block targetBlock = player.getTargetBlock((Set<Material>) null, 64);
-			Validator.notCondition(targetBlock != null && targetBlock.getType() == type, ChatColor.RED + "Devi guardare " + type + " per eseguire questo comando!");
+			Validator.notCondition(targetBlock != null && targetBlock.getType() == type, ChatColor.RED + "You must watch a " + type + " block to use this command!");
 			return targetBlock;
 		}
 
 		// Verifica che Player stia guardando un blocco e in caso lo ritorna
 		public static Block getTargetBlock(Player player) {
 			Block targetBlock = player.getTargetBlock((Set<Material>) null, 64);
-			Validator.notCondition(targetBlock != null, ChatColor.RED + "Devi guardare un blocco per eseguire questo comando!");
+			Validator.notCondition(targetBlock != null, ChatColor.RED + "You must watch a block!");
 			return targetBlock;
 		}
 
@@ -351,7 +351,7 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 			if(Bukkit.getPlayer(player) != null) {
 				return Bukkit.getPlayer(player);
 			} else {
-				throw new CommandFramework.ExecuteException("Il giocatore " + player + " non è attualmente online.");
+				throw new CommandFramework.ExecuteException("Player " + player + " isn't online.");
 			}
 		}
 
@@ -367,13 +367,13 @@ public abstract class CommandFramework implements Listener, CommandExecutor {
 		// Verifica che un giocatore abbia {num} slot liberi nell'inventario
 		public static void hasEmptySlot(Player player, int slots) {
 			if(GameUtils.hasEmptySlots(player, slots))
-				throw new CommandFramework.ExecuteException("Non hai abbastanza spazio nel tuo inventario! (" + slots + " slot)");
+				throw new CommandFramework.ExecuteException("You don't have space in your inventory! (" + slots + " slot)");
 		}
 
 		// Verifica che un giocatore possa aggiungere un oggetto al suo inventario
 		public static void canAdd(Player player, ItemStack item) {
 			if(!GameUtils.canAdd(player, item))
-				throw new CommandFramework.ExecuteException("Non hai abbastanza spazio nel tuo inventario!");
+				throw new CommandFramework.ExecuteException("You don't have space in your inventory!");
 		}
 
 	}

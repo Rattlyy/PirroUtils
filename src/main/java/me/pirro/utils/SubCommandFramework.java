@@ -65,7 +65,7 @@ public abstract class SubCommandFramework extends CommandFramework
 				}
 				catch (Exception var15)
 				{
-					plugin.getLogger().log(Level.SEVERE, "Impossibile aggiungere il sottocomando " + subCommandName, var15);
+					plugin.getLogger().log(Level.SEVERE, "Cannot add subcommand " + subCommandName, var15);
 				}
 			}
 		}
@@ -94,7 +94,7 @@ public abstract class SubCommandFramework extends CommandFramework
 						}
 						else
 						{
-							sender.sendMessage(org.bukkit.ChatColor.RED + "Non hai il permesso per usare questo sotto-comando.");
+							sender.sendMessage(org.bukkit.ChatColor.RED + "You can't use this.");
 						}
 
 						return;
@@ -103,7 +103,7 @@ public abstract class SubCommandFramework extends CommandFramework
 					String[] subArgs = (String[]) Arrays.copyOfRange(args, 1, args.length);
 					if (subArgs.length < piece.minArgs)
 					{
-						sender.sendMessage(ChatColor.RED + "Parametri errati! Utilizza: " + ChatColor.GRAY + "/" + label + " " + subCommandName + (piece.usage != null ? " " + piece.usage : ""));
+						sender.sendMessage(ChatColor.RED + "Wrong parameters! Use: " + ChatColor.GRAY + "/" + label + " " + subCommandName + (piece.usage != null ? " " + piece.usage : ""));
 						return;
 					}
 
@@ -135,7 +135,7 @@ public abstract class SubCommandFramework extends CommandFramework
 
 	public void tellUnknownSubCommand(CommandSender sender, String label)
 	{
-		sender.sendMessage(ChatColor.RED + "Sotto-comando sconosciuto. Scrivi /" + label + " per ottenere aiuto.");
+		sender.sendMessage(ChatColor.RED + "Cannot recognize this subcommand. Write /" + label + " to get help.");
 	}
 
 	protected final List<SubCommandDetails> getSubCommands()
@@ -189,7 +189,7 @@ public abstract class SubCommandFramework extends CommandFramework
 			}
 		}
 
-		Validator.notCondition(has, "Non hai il permesso per eseguire questo comando!");
+		Validator.notCondition(has, "You can't use this!");
 
 		sender.sendMessage("");
 		sender.sendMessage(ChatColor.GOLD + " " + ChatColor.BOLD + "Lista comandi" + ChatColor.RESET + " " + ChatColor.GOLD + "(/" + this.label + ")");
@@ -198,7 +198,7 @@ public abstract class SubCommandFramework extends CommandFramework
 			if (sub.getPermission() == null || sender.hasPermission(sub.getPermission()))
 				sender.spigot().sendMessage(new TextComponent(" " + ChatColor.DARK_GRAY + " ▪ " + ChatColor.AQUA), new TextComponentBuilder().setText("/" + this.label + " " + sub.getName() + (sub.getUsage() != null ? " " + sub.getUsage() : "")).setColor(net.md_5.bungee.api.ChatColor.AQUA).setHover(ChatColor.AQUA + "/" + this.label + " " + sub.getName() + (sub.getUsage() != null ? " " + sub.getUsage() : "") + "\n" + ChatColor.GRAY + sub.getDescription()).setSuggestCommand("/" + this.label + " " + sub.getName() + " ").build());
 		}
-		sender.sendMessage(ChatColor.GRAY + " Passa la freccia per più informazioni.");
+		sender.sendMessage(ChatColor.GRAY + " Hover for more infos.");
 		sender.sendMessage("");
 	}
 
